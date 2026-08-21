@@ -2,9 +2,10 @@ import { useEffect, useRef } from 'react';
 import { Search, X, Clock, ArrowRight } from 'lucide-react';
 import { newsArticles, heroArticles, categoryColors } from '../data/newsData';
 import { useApp } from '../context/AppContext';
+import { categoryTranslationKeys } from '../utils/translations';
 
 export default function SearchOverlay() {
-  const { searchQuery, setSearchQuery, setSelectedArticle, setCurrentPage } = useApp();
+  const { searchQuery, setSearchQuery, setSelectedArticle, setCurrentPage, t } = useApp();
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -52,7 +53,7 @@ export default function SearchOverlay() {
             type="text"
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            placeholder="Search stories, topics, authors..."
+            placeholder={t('searchStories')}
             className="flex-1 text-base text-slate-900 dark:text-white placeholder-gray-400 outline-none bg-transparent"
             autoFocus
           />
@@ -71,7 +72,7 @@ export default function SearchOverlay() {
 
             <div className="px-5 py-2.5 flex items-center justify-between">
               <span className="text-xs text-gray-400 dark:text-slate-500 font-medium uppercase tracking-wide">
-                {results.length} result{results.length !== 1 ? 's' : ''} for "{searchQuery}"
+                {results.length} {results.length !== 1 ? t('results') : t('result')} for "{searchQuery}"
               </span>
             </div>
 
@@ -94,7 +95,7 @@ export default function SearchOverlay() {
 
                   <div className="flex-1 min-w-0">
                     <span className={`text-xs font-semibold px-2 py-0.5 rounded ${catColor}`}>
-                      {article.category}
+                      {t(categoryTranslationKeys[article.category], article.category)}
                     </span>
 
                     <h4 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mt-1 line-clamp-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
@@ -103,7 +104,7 @@ export default function SearchOverlay() {
 
                     <div className="flex items-center gap-2 mt-0.5 text-xs text-gray-400 dark:text-slate-500">
                       <Clock size={10} />
-                      <span>{article.readTime} min read</span>
+                      <span>{article.readTime} {t('minRead')}</span>
                       <span>·</span>
                       <span>{article.publishedAt}</span>
                     </div>
@@ -117,9 +118,9 @@ export default function SearchOverlay() {
         ) : (
           <div className="px-5 py-10 text-center">
             <div className="text-4xl mb-3">🔍</div>
-            <p className="text-slate-900 dark:text-white font-semibold">No results found</p>
+            <p className="text-slate-900 dark:text-white font-semibold">{t('noResults')}</p>
             <p className="text-gray-500 dark:text-slate-400 text-sm mt-1">
-              Try searching for "Tech", "Climate", "Sports", or an author name
+              {t('trySearching')}
             </p>
           </div>
         )}
@@ -128,7 +129,7 @@ export default function SearchOverlay() {
         {searchQuery.length < 2 && (
           <div className="px-5 py-4 border-t border-gray-100 dark:border-slate-700">
             <p className="text-xs text-gray-400 dark:text-slate-500 mb-2 font-medium uppercase tracking-wide">
-              Popular Searches
+              {t('popularSearches')}
             </p>
 
             <div className="flex gap-2 flex-wrap">

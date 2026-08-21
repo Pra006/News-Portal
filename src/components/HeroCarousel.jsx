@@ -2,13 +2,14 @@ import { useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight, Clock, Zap } from "lucide-react";
 import { heroArticles } from "../data/newsData";
 import { useApp } from "../context/AppContext";
+import { categoryTranslationKeys } from "../utils/translations";
 
 export default function HeroCarousel() {
   const [current, setCurrent] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [direction, setDirection] = useState("right");
 
-  const { setSelectedArticle, setCurrentPage } = useApp();
+  const { setSelectedArticle, setCurrentPage, t } = useApp();
 
   const goTo = useCallback(
     (index, dir = "right") => {
@@ -102,11 +103,11 @@ export default function HeroCarousel() {
             <div className="flex items-center gap-2 mb-4">
               <span className="flex items-center gap-1.5 bg-orange-500 text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider animate-pulse">
                 <Zap size={12} />
-                Breaking News
+                {t('breakingNews')}
               </span>
 
               <span className="bg-white/20 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1.5 rounded-full">
-                {article.category}
+                {t(categoryTranslationKeys[article.category], article.category)}
               </span>
             </div>
           )}
@@ -154,7 +155,7 @@ export default function HeroCarousel() {
             onClick={handleReadMore}
             className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-full transition-all hover:shadow-lg hover:shadow-blue-500/25 active:scale-95 text-sm md:text-base min-h-[48px]"
           >
-            Read Full Story
+            {t('readFullStory')}
             <ChevronRight size={16} />
           </button>
         </div>

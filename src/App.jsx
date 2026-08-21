@@ -10,7 +10,7 @@ import CategoryPage from './pages/CategoryPage';
 import ArticlePage from './pages/ArticlePage';
 
 function AppContent() {
-  const { currentPage, darkMode } = useApp();
+  const { currentPage, darkMode, language } = useApp();
 
   // Apply dark mode class to HTML element
   useEffect(() => {
@@ -22,7 +22,7 @@ function AppContent() {
   }, [darkMode]);
 
   return (
-    <div className={`min-h-screen flex flex-col ${darkMode ? 'dark' : ''}`}>
+    <div className={`min-h-screen flex flex-col ${darkMode ? 'dark' : ''} ${language === 'ne' ? 'font-nepali' : ''}`}>
       <div className="flex-1 flex flex-col bg-gray-50 dark:bg-slate-950 transition-colors duration-300">
         <Header />
         <SearchOverlay />

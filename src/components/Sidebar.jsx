@@ -3,12 +3,13 @@ import { TrendingUp, Mail, CheckCircle, ChevronRight, Flame } from 'lucide-react
 import { trendingArticles, newsArticles } from '../data/newsData';
 import { useApp } from '../context/AppContext';
 import NewsCard from './NewsCard';
+import { categoryTranslationKeys } from '../utils/translations';
 
 export default function Sidebar() {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { setSelectedArticle, setCurrentPage } = useApp();
+  const { setSelectedArticle, setCurrentPage, t } = useApp();
 
   const handleSubscribe = (e) => {
     e.preventDefault();
@@ -35,7 +36,7 @@ export default function Sidebar() {
             <TrendingUp size={15} className="text-orange-500" />
           </div>
           <h2 className="font-bold text-slate-900 dark:text-white text-sm uppercase tracking-wide">
-            Trending Now
+            {t('trendingNow')}
           </h2>
         </div>
 
@@ -52,7 +53,7 @@ export default function Sidebar() {
 
               <div className="flex-1 min-w-0">
                 <span className="text-xs font-semibold text-orange-500 uppercase tracking-wide block mb-1">
-                  {article.category}
+                  {t(categoryTranslationKeys[article.category], article.category)}
                 </span>
 
                 <h4 className="text-sm font-semibold text-slate-800 dark:text-slate-200 line-clamp-2 leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
@@ -60,7 +61,7 @@ export default function Sidebar() {
                 </h4>
 
                 <div className="flex items-center gap-1.5 mt-1.5 text-xs text-gray-400 dark:text-slate-500">
-                  <span>{article.readTime} min read</span>
+                  <span>{article.readTime} {t('minRead')}</span>
                   <span>·</span>
                   <span>{article.publishedAt}</span>
                 </div>
@@ -81,19 +82,19 @@ export default function Sidebar() {
           <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
             <Mail size={15} className="text-white" />
           </div>
-          <h3 className="font-bold text-base">Daily Briefing</h3>
+          <h3 className="font-bold text-base">{t('dailyBriefing')}</h3>
         </div>
 
         <p className="text-blue-100 text-sm leading-relaxed mb-4">
-          Get the top 5 stories every morning, curated by our editorial team. No spam, ever.
+          {t('briefingDescription')}
         </p>
 
         {subscribed ? (
           <div className="flex items-center gap-2 bg-white/10 rounded-xl p-4">
             <CheckCircle size={20} className="text-green-300" />
             <div>
-              <p className="font-semibold text-sm">You're subscribed!</p>
-              <p className="text-blue-200 text-xs">Check your inbox to confirm.</p>
+              <p className="font-semibold text-sm">{t('subscribed')}</p>
+              <p className="text-blue-200 text-xs">{t('checkInbox')}</p>
             </div>
           </div>
         ) : (
@@ -116,7 +117,7 @@ export default function Sidebar() {
                 <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
               ) : (
                 <>
-                  Subscribe Free
+                  {t('subscribeFree')}
                   <ChevronRight size={14} />
                 </>
               )}
@@ -125,7 +126,7 @@ export default function Sidebar() {
         )}
 
         <p className="text-blue-200 text-xs mt-3 text-center">
-          Join 250,000+ readers worldwide
+          {t('joinReaders')}
         </p>
       </div>
 
@@ -136,7 +137,7 @@ export default function Sidebar() {
             <Flame size={15} className="text-red-500" />
           </div>
           <h2 className="font-bold text-slate-900 dark:text-white text-sm uppercase tracking-wide">
-            Hot Topics
+            {t('hotTopics')}
           </h2>
         </div>
 
@@ -167,7 +168,7 @@ export default function Sidebar() {
       <div className="bg-white dark:bg-slate-800 rounded-xl border border-gray-100 dark:border-slate-700 overflow-hidden">
         <div className="px-5 py-4 border-b border-gray-100 dark:border-slate-700">
           <h2 className="font-bold text-slate-900 dark:text-white text-sm uppercase tracking-wide">
-            Must Read
+            {t('mustRead')}
           </h2>
         </div>
 
@@ -181,7 +182,7 @@ export default function Sidebar() {
       {/* Ad Placeholder */}
       <div className="bg-gradient-to-br from-gray-100 to-gray-200 dark:from-slate-800 dark:to-slate-700 rounded-xl border border-dashed border-gray-300 dark:border-slate-600 p-6 text-center">
         <p className="text-xs text-gray-400 dark:text-slate-500 uppercase tracking-wider font-medium">
-          Advertisement
+          {t('advertisement')}
         </p>
         <div className="mt-3 w-full h-40 bg-gray-200/50 dark:bg-slate-700/50 rounded-lg flex items-center justify-center">
           <span className="text-gray-300 dark:text-slate-600 text-sm">

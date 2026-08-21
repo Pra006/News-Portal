@@ -8,6 +8,7 @@ import {
   categoryColors,
 } from "../data/newsData";
 import { useApp } from "../context/AppContext";
+import { categoryTranslationKeys } from "../utils/translations";
 
 const categoryEmojis = {
   World: "🌍",
@@ -41,7 +42,7 @@ const categoryDescriptions = {
 export default function CategoryPage() {
   const [loading, setLoading] = useState(true);
   const [sortBy, setSortBy] = useState("latest");
-  const { selectedCategory } = useApp();
+  const { selectedCategory, t } = useApp();
 
   useEffect(() => {
     setLoading(true);
@@ -93,12 +94,12 @@ export default function CategoryPage() {
             <span
               className={`text-xs font-bold px-3 py-1.5 rounded-full ${catColor}`}
             >
-              {filtered.length} Stories
+              {filtered.length} {t('stories')}
             </span>
           </div>
 
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4">
-            {selectedCategory}
+            {t(categoryTranslationKeys[selectedCategory], selectedCategory)}
           </h1>
 
           <p className="text-gray-300 text-base md:text-lg max-w-2xl leading-relaxed">
@@ -108,7 +109,7 @@ export default function CategoryPage() {
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 mt-6 text-sm text-gray-400">
             <span className="hover:text-white cursor-pointer transition-colors">
-              Home
+              {t('home')}
             </span>
             <span>/</span>
             <span className="text-white font-medium">
@@ -126,17 +127,17 @@ export default function CategoryPage() {
             {/* Filter Bar */}
             <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
               <p className="text-sm text-gray-500 dark:text-slate-400">
-                Showing{" "}
+                {t('showing')} {" "}
                 <strong className="text-slate-900 dark:text-white">
                   {filtered.length}
                 </strong>{" "}
-                stories in {selectedCategory}
+                {t('stories')} {t('in')} {t(categoryTranslationKeys[selectedCategory], selectedCategory)}
               </p>
 
               <div className="flex items-center gap-2">
                 <SlidersHorizontal size={15} className="text-gray-400" />
                 <span className="text-sm text-gray-500 dark:text-slate-400">
-                  Sort by:
+                  {t('sortBy')}
                 </span>
 
                 <div className="flex bg-gray-100 dark:bg-slate-800 rounded-lg p-1 gap-1">
@@ -163,7 +164,7 @@ export default function CategoryPage() {
                 <div className="flex items-center gap-2 mb-4">
                   <div className="w-1 h-6 bg-blue-600 rounded-full" />
                   <h2 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wide">
-                    Featured Story
+                    {t('featuredStory')}
                   </h2>
                 </div>
 
@@ -179,7 +180,7 @@ export default function CategoryPage() {
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-1 h-6 bg-orange-500 rounded-full" />
                 <h2 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wide">
-                  All Stories
+                  {t('allStories')}
                 </h2>
               </div>
 
@@ -203,11 +204,11 @@ export default function CategoryPage() {
                   </div>
 
                   <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
-                    No more stories
+                    {t('noMoreStories')}
                   </h3>
 
                   <p className="text-gray-500 dark:text-slate-400">
-                    Check back soon for new {selectedCategory} coverage.
+                    {t('checkBack')} {t(categoryTranslationKeys[selectedCategory], selectedCategory)}
                   </p>
                 </div>
               )}
@@ -216,7 +217,7 @@ export default function CategoryPage() {
               {restArticles.length >= 3 && (
                 <div className="text-center mt-10">
                   <button className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3.5 rounded-full transition-all hover:shadow-lg active:scale-95 min-h-[48px]">
-                    Load More Stories
+                    {t('loadMoreStories')}
                     <ArrowRight size={16} />
                   </button>
                 </div>

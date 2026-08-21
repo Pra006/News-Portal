@@ -8,7 +8,7 @@ import { useApp } from "../context/AppContext";
 
 export default function HomePage() {
   const [loading, setLoading] = useState(true);
-  const { setSelectedArticle, setCurrentPage } = useApp();
+  const { setSelectedArticle, setCurrentPage, t } = useApp();
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 1200);
@@ -82,7 +82,7 @@ export default function HomePage() {
                 <div className="flex items-center gap-2">
                   <div className="w-1 h-6 bg-blue-600 rounded-full" />
                   <h2 className="text-lg font-bold text-slate-900 dark:text-white uppercase tracking-wide">
-                    Top Story
+                    {t('topStory')}
                   </h2>
                 </div>
               </div>
@@ -100,12 +100,12 @@ export default function HomePage() {
                 <div className="flex items-center gap-2">
                   <div className="w-1 h-6 bg-blue-600 rounded-full" />
                   <h2 className="text-lg font-bold text-slate-900 dark:text-white uppercase tracking-wide">
-                    Latest News
+                    {t('latestNews')}
                   </h2>
                 </div>
 
                 <button className="flex items-center gap-1.5 text-sm font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
-                  See all <ArrowRight size={14} />
+                  {t('seeAll')} <ArrowRight size={14} />
                 </button>
               </div>
 
@@ -127,7 +127,7 @@ export default function HomePage() {
                   <div className="w-1 h-6 bg-orange-500 rounded-full" />
                   <h2 className="text-lg font-bold text-slate-900 dark:text-white uppercase tracking-wide flex items-center gap-2">
                     <Sparkles size={16} className="text-orange-500" />
-                    Most Popular
+                    {t('mostPopular')}
                   </h2>
                 </div>
               </div>
@@ -146,12 +146,12 @@ export default function HomePage() {
             {/* Category Strips */}
             {[
               {
-                label: "Technology",
+                label: t('technology'),
                 color: "bg-purple-600",
                 articles: newsArticles.filter((a) => a.category === "Tech"),
               },
               {
-                label: "World Affairs",
+                label: t('worldAffairs'),
                 color: "bg-blue-600",
                 articles: newsArticles.filter(
                   (a) => a.category === "World" || a.category === "Politics"
@@ -170,7 +170,7 @@ export default function HomePage() {
                       </div>
 
                       <button className="flex items-center gap-1.5 text-sm font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 transition-colors">
-                        View more <ArrowRight size={14} />
+                        {t('viewMore')} <ArrowRight size={14} />
                       </button>
                     </div>
 
@@ -189,7 +189,7 @@ export default function HomePage() {
                 <div className="flex items-center gap-2">
                   <div className="w-1 h-6 bg-slate-400 rounded-full" />
                   <h2 className="text-lg font-bold text-slate-900 dark:text-white uppercase tracking-wide">
-                    More Stories
+                    {t('moreStories')}
                   </h2>
                 </div>
               </div>

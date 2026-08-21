@@ -85,7 +85,7 @@ const socialLinks = [
 ];
 
 export default function Footer() {
-  const { setCurrentPage, setSelectedCategory } = useApp();
+  const { setCurrentPage, setSelectedCategory, t } = useApp();
 
   const handleCategoryClick = (cat) => {
     const validCats = [
@@ -160,7 +160,7 @@ export default function Footer() {
           {Object.entries(footerLinks).map(([heading, links]) => (
             <div key={heading}>
               <h3 className="text-white font-bold text-sm uppercase tracking-wider mb-4">
-                {heading}
+                {t(heading.toLowerCase(), heading)}
               </h3>
               <ul className="space-y-2.5">
                 {links.map((link) => (
@@ -192,19 +192,19 @@ export default function Footer() {
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
             <div>
-              <h4 className="text-white font-bold mb-1">Stay in the loop</h4>
+              <h4 className="text-white font-bold mb-1">{t('stayInLoop')}</h4>
               <p className="text-sm text-gray-500">
-                Get breaking news alerts and morning briefings.
+                {t('breakingAlerts')}
               </p>
             </div>
             <div className="flex gap-2 w-full lg:w-auto max-w-md">
               <input
                 type="email"
-                placeholder="Enter your email address"
+                placeholder={t('emailAddress')}
                 className="flex-1 lg:w-72 bg-slate-800 dark:bg-slate-700 border border-slate-700 dark:border-slate-600 rounded-full px-5 py-2.5 text-sm text-gray-300 placeholder-gray-600 outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all"
               />
               <button className="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-5 py-2.5 rounded-full transition-all hover:shadow-lg shrink-0 text-sm min-h-[44px]">
-                Subscribe
+                {t('subscribe')}
               </button>
             </div>
           </div>
@@ -218,19 +218,19 @@ export default function Footer() {
             <p>© 2026 PulseWire Media Group. All rights reserved.</p>
             <div className="flex items-center gap-4">
               <button className="hover:text-gray-400 transition-colors">
-                Privacy Policy
+                {t('privacy')}
               </button>
               <button className="hover:text-gray-400 transition-colors">
-                Terms of Service
+                {t('terms')}
               </button>
               <button className="hover:text-gray-400 transition-colors">
-                Cookie Settings
+                {t('cookie')}
               </button>
             </div>
             <div className="flex items-center gap-1.5">
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
               <span className="text-green-600 dark:text-green-700">
-                All systems operational
+                {t('allSystems')}
               </span>
             </div>
           </div>

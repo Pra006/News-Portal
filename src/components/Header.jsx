@@ -1,9 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
 import {
-  Search, Moon, Sun, Menu, X, Zap, Bell, TrendingUp
+  Search, Moon, Sun, Menu, X, Zap, Bell, TrendingUp, Languages
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { categories } from '../data/newsData';
+import { categoryTranslationKeys } from '../utils/translations';
 import UserLogin from "./auth/Login"
 
 const navCategories = ['World', 'Politics', 'Tech', 'Sports', 'Business', 'Science'];
@@ -15,6 +16,8 @@ export default function Header() {
     currentPage, setCurrentPage,
     selectedCategory, setSelectedCategory,
     searchQuery, setSearchQuery,
+    language, changeLanguage,
+    t,
   } = useApp();
 
   const [searchOpen, setSearchOpen] = useState(false);
@@ -43,8 +46,8 @@ export default function Header() {
         <div className="max-w-[1400px] mx-auto px-3 sm:px-4 flex items-center gap-2 sm:gap-3">
           <span className="flex items-center gap-1 shrink-0 font-semibold bg-orange-500 rounded px-2 py-0.5 text-xs uppercase tracking-wide">
             <Zap size={10} />
-            <span className="hidden xs:inline">Breaking</span>
-            <span className="xs:hidden">Live</span>
+            <span className="hidden xs:inline">{t('breaking')}</span>
+            <span className="xs:hidden">{t('live')}</span>
           </span>
           <div className="overflow-hidden flex-1">
             <div className="animate-marquee whitespace-nowrap">
@@ -78,10 +81,10 @@ export default function Header() {
             {/* Tagline — desktop only in this row */}
             <div className="hidden sm:flex flex-1 flex-col items-center justify-center text-center gap-0.5">
               <span className="text-base md:text-xl lg:text-2xl font-bold text-slate-800 dark:text-white leading-tight">
-                सबैको आवाज, आवाज एकसाथ
+                {t('tagline')}
               </span>
               <span className="text-[10px] md:text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400">
-                Digital Dawn of Nepal's News
+                {t('digitalDawn')}
               </span>
             </div>
 
@@ -116,7 +119,23 @@ export default function Header() {
                   ? <Sun size={18} className="text-yellow-400" />
                   : <Moon size={18} />}
               </button>
-              <div>
+              <div className="hidden lg:flex items-center gap-1 rounded-full bg-gray-100 dark:bg-slate-800 p-1">
+                <button
+                  onClick={() => changeLanguage('en')}
+                  className={`rounded-full px-2.5 py-1 text-xs font-semibold transition-colors ${language === 'en' ? 'bg-white dark:bg-slate-700 text-blue-600 shadow-sm' : 'text-slate-500 dark:text-slate-400'}`}
+                  aria-pressed={language === 'en'}
+                >
+                  EN
+                </button>
+                <button
+                  onClick={() => changeLanguage('ne')}
+                  className={`rounded-full px-2.5 py-1 text-xs font-semibold transition-colors ${language === 'ne' ? 'bg-white dark:bg-slate-700 text-blue-600 shadow-sm' : 'text-slate-500 dark:text-slate-400'}`}
+                  aria-pressed={language === 'ne'}
+                >
+                  नेपाली
+                </button>
+              </div>
+              <div className="hidden lg:block">
                <UserLogin/>
               </div>
 
@@ -134,10 +153,10 @@ export default function Header() {
           {/* ── Row 2 (mobile only): centered tagline ── */}
           <div className="sm:hidden flex flex-col items-center justify-center text-center pb-3 -mt-1 border-b border-gray-100 dark:border-slate-800">
             <span className="text-sm font-bold text-slate-800 dark:text-white leading-tight">
-              सबैको आवाज, आवाज एकसाथ
+              {t('tagline')}
             </span>
             <span className="text-[9px] uppercase tracking-widest text-slate-500 dark:text-slate-400 mt-0.5">
-              Digital Dawn of Nepal's News
+              {t('digitalDawn')}
             </span>
           </div>
 
@@ -149,7 +168,7 @@ export default function Header() {
                 <input
                   autoFocus
                   type="text"
-                  placeholder="Search news..."
+                  placeholder={t('search')}
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
                   className="bg-transparent flex-1 text-sm text-slate-800 dark:text-slate-200 placeholder-gray-400 outline-none"
@@ -173,7 +192,7 @@ export default function Header() {
                   : 'text-slate-600 dark:text-slate-400 border-transparent hover:text-slate-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-slate-600'
               }`}
             >
-              Home
+              {t('home')}
             </button>
 
             {navCategories.map(cat => (
@@ -186,7 +205,7 @@ export default function Header() {
                     : 'text-slate-600 dark:text-slate-400 border-transparent hover:text-slate-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-slate-600'
                 }`}
               >
-                {cat}
+                {t(categoryTranslationKeys[cat], cat)}
               </button>
             ))}
 
@@ -198,7 +217,7 @@ export default function Header() {
                   : 'text-slate-600 dark:text-slate-400 border-transparent hover:text-slate-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-slate-600'
               }`}
             >
-              More ▾
+              {t('moreStories')} ▾
             </button>
 
             {/* Search bar pushed to the right on desktop */}
@@ -206,7 +225,7 @@ export default function Header() {
               <Search size={14} className="text-gray-400 shrink-0" />
               <input
                 type="text"
-                placeholder="Search…"
+                  placeholder={t('search')}
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
                 className="bg-transparent flex-1 text-sm text-slate-800 dark:text-slate-200 placeholder-gray-400 outline-none"
@@ -251,7 +270,7 @@ export default function Header() {
                 <Search size={15} className="text-gray-400" />
                 <input
                   type="text"
-                  placeholder="Search news..."
+                  placeholder={t('search')}
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
                   className="bg-transparent flex-1 text-sm text-slate-800 dark:text-slate-200 placeholder-gray-400 outline-none"
@@ -269,7 +288,7 @@ export default function Header() {
                     : 'text-slate-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-800'
                 }`}
               >
-                🏠 Home
+                🏠 {t('home')}
               </button>
 
               {categories.map(cat => (
@@ -290,22 +309,47 @@ export default function Header() {
                   {cat === 'Science' && '🔬 '}
                   {cat === 'Health' && '❤️ '}
                   {cat === 'Culture' && '🎨 '}
-                  {cat}
+                  {t(categoryTranslationKeys[cat], cat)}
                 </button>
               ))}
             </nav>
 
             {/* Drawer footer */}
             <div className="p-4 border-t border-gray-100 dark:border-slate-800">
+              <div className="mb-3">
+                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-2">
+                  {t('language')}
+                </p>
+                <div className="flex items-center gap-2 rounded-xl bg-gray-100 dark:bg-slate-800 p-1">
+                  <Languages size={16} className="ml-2 text-slate-500 dark:text-slate-400" />
+                  <button
+                    onClick={() => changeLanguage('en')}
+                    className={`flex-1 rounded-lg py-2 text-sm font-semibold transition-colors ${language === 'en' ? 'bg-white dark:bg-slate-700 text-blue-600 shadow-sm' : 'text-slate-500 dark:text-slate-400'}`}
+                    aria-pressed={language === 'en'}
+                  >
+                    {t('english')}
+                  </button>
+                  <button
+                    onClick={() => changeLanguage('ne')}
+                    className={`flex-1 rounded-lg py-2 text-sm font-semibold transition-colors ${language === 'ne' ? 'bg-white dark:bg-slate-700 text-blue-600 shadow-sm' : 'text-slate-500 dark:text-slate-400'}`}
+                    aria-pressed={language === 'ne'}
+                  >
+                    नेपाली
+                  </button>
+                </div>
+              </div>
+              <div className="mb-3">
+                <UserLogin />
+              </div>
               <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 rounded-xl transition-colors min-h-[48px]">
-                Subscribe for Free
+                {t('subscribeForFree')}
               </button>
               <button
                 onClick={toggleDarkMode}
                 className="w-full mt-2 flex items-center justify-center gap-2 border border-gray-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-medium py-3.5 rounded-xl transition-colors min-h-[48px]"
               >
                 {darkMode ? <Sun size={16} className="text-yellow-400" /> : <Moon size={16} />}
-                {darkMode ? 'Light Mode' : 'Dark Mode'}
+                {darkMode ? t('lightMode') : t('darkMode')}
               </button>
             </div>
           </div>

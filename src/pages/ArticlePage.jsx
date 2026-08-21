@@ -20,6 +20,7 @@ export default function ArticlePage() {
     setCurrentPage,
     setSelectedArticle,
     setSelectedCategory,
+    t,
   } = useApp();
 
   const [liked, setLiked] = useState(false);
@@ -73,7 +74,7 @@ export default function ArticlePage() {
             size={16}
             className="group-hover:-translate-x-0.5 transition-transform"
           />
-          Back to Home
+          {t('backToHome')}
         </button>
       </div>
 
@@ -93,13 +94,13 @@ export default function ArticlePage() {
 
           {article.isBreaking && (
             <span className="bg-orange-500 text-white text-xs font-bold px-3 py-1.5 rounded-full animate-pulse">
-              Breaking
+              {t('breakingShort')}
             </span>
           )}
 
           {article.isFeatured && (
             <span className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs font-bold px-3 py-1.5 rounded-full">
-              Featured
+              {t('featured')}
             </span>
           )}
         </div>
@@ -146,7 +147,7 @@ export default function ArticlePage() {
 
             <div className="flex items-center gap-1.5">
               <Eye size={14} />
-              <span>24.7K views</span>
+              <span>24.7K {t('views')}</span>
             </div>
           </div>
         </div>
@@ -163,7 +164,7 @@ export default function ArticlePage() {
         </div>
 
         <p className="text-xs text-gray-400 dark:text-slate-500 mt-2 px-1">
-          Photo: {article.author.name} / PulseWire Media
+          {t('photo')} {article.author.name} / PulseWire Media
         </p>
       </div>
 
@@ -225,7 +226,7 @@ export default function ArticlePage() {
         {/* Tags */}
         <div className="flex items-center gap-2 mt-8 flex-wrap">
           <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">
-            Tags:
+            {t('tags')}
           </span>
 
           {article.tags.map((tag) => (
@@ -277,14 +278,14 @@ export default function ArticlePage() {
                     bookmarked ? "fill-blue-500 text-blue-500" : ""
                   }
                 />
-                <span>{bookmarked ? "Saved" : "Save"}</span>
+                <span>{bookmarked ? t('saved') : t('save')}</span>
               </button>
             </div>
 
             {/* Share */}
             <div className="flex items-center gap-2">
               <span className="text-sm text-gray-500 dark:text-slate-400 font-medium hidden sm:block">
-                Share:
+                {t('share')}:
               </span>
 
               <button className="w-9 h-9 rounded-full bg-black text-white flex items-center justify-center hover:opacity-80 transition-opacity hover:scale-110">
@@ -375,7 +376,7 @@ export default function ArticlePage() {
             <div className="flex items-center gap-2">
               <div className="w-1 h-6 bg-blue-600 rounded-full" />
               <h2 className="text-xl font-bold text-slate-900 dark:text-white">
-                Related Stories
+                {t('relatedStories')}
               </h2>
             </div>
 
@@ -386,7 +387,7 @@ export default function ArticlePage() {
               }}
               className="flex items-center gap-1.5 text-sm font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 transition-colors"
             >
-              More in {article.category} <ChevronRight size={14} />
+              {t('moreIn')} {article.category} <ChevronRight size={14} />
             </button>
           </div>
 
@@ -402,11 +403,11 @@ export default function ArticlePage() {
       <div className="bg-gradient-to-r from-blue-600 to-blue-800 py-12">
         <div className="max-w-[600px] mx-auto px-4 text-center">
           <h3 className="text-2xl font-bold text-white mb-2">
-            Stay Informed
+            {t('stayInformed')}
           </h3>
 
           <p className="text-blue-100 mb-6">
-            Get the day's top stories delivered to your inbox every morning.
+            {t('dailyStories')}
           </p>
 
           <div className="flex gap-2 max-w-sm mx-auto">
@@ -417,7 +418,7 @@ export default function ArticlePage() {
             />
 
             <button className="bg-orange-500 hover:bg-orange-400 text-white font-semibold px-6 py-3 rounded-full transition-all hover:shadow-lg active:scale-95 whitespace-nowrap min-h-[48px]">
-              Subscribe
+              {t('subscribe')}
             </button>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import { Clock, Tag } from 'lucide-react';
 import { categoryColors } from '../data/newsData';
+import { categoryTranslationKeys } from '../utils/translations';
 import { useApp } from '../context/AppContext';
 
 function SkeletonCard({ variant = 'default' }) {
@@ -54,7 +55,7 @@ export default function NewsCard({
   variant = 'default',
   loading = false
 }) {
-  const { setSelectedArticle, setCurrentPage } = useApp();
+  const { setSelectedArticle, setCurrentPage, t } = useApp();
 
   if (loading) return <SkeletonCard variant={variant} />;
 
@@ -82,14 +83,14 @@ export default function NewsCard({
         </div>
         <div className="flex-1 min-w-0">
           <span className={`text-xs font-semibold px-1.5 py-0.5 rounded ${catColor}`}>
-            {article.category}
+            {t(categoryTranslationKeys[article.category], article.category)}
           </span>
           <h4 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mt-1 line-clamp-2 leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
             {article.title}
           </h4>
           <div className="flex items-center gap-1 mt-1 text-xs text-gray-400 dark:text-slate-500">
             <Clock size={10} />
-            <span>{article.readTime} min</span>
+            <span>{article.readTime} {t('minRead')}</span>
           </div>
         </div>
       </button>
@@ -112,7 +113,7 @@ export default function NewsCard({
         </div>
         <div className="flex-1 p-4 min-w-0">
           <span className={`text-xs font-semibold px-2 py-0.5 rounded ${catColor}`}>
-            {article.category}
+            {t(categoryTranslationKeys[article.category], article.category)}
           </span>
           <h3 className="text-base font-bold text-slate-800 dark:text-slate-200 mt-1.5 line-clamp-2 leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
             {article.title}
@@ -120,7 +121,7 @@ export default function NewsCard({
           <div className="flex items-center gap-3 mt-2 text-xs text-gray-500 dark:text-slate-400">
             <div className="flex items-center gap-1">
               <Clock size={11} />
-              <span>{article.readTime} min</span>
+              <span>{article.readTime} {t('minRead')}</span>
             </div>
             <span>{article.publishedAt}</span>
           </div>
@@ -145,11 +146,11 @@ export default function NewsCard({
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
           <div className="absolute top-3 left-3 flex gap-2">
             <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${catColor}`}>
-              {article.category}
+              {t(categoryTranslationKeys[article.category], article.category)}
             </span>
             {article.isFeatured && (
               <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-orange-500 text-white">
-                Featured
+                {t('featured')}
               </span>
             )}
           </div>
@@ -175,7 +176,7 @@ export default function NewsCard({
             </div>
             <div className="flex items-center gap-1.5 text-xs text-gray-400 dark:text-slate-500">
               <Clock size={12} />
-              <span>{article.readTime} min read</span>
+              <span>{article.readTime} {t('minRead')}</span>
             </div>
           </div>
         </div>
@@ -199,14 +200,14 @@ export default function NewsCard({
         {article.isPopular && (
           <div className="absolute top-2 right-2 bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1">
             <Tag size={10} />
-            Popular
+            {t('popular')}
           </div>
         )}
       </div>
 
       <div className="p-4">
         <span className={`inline-block text-xs font-semibold px-2.5 py-1 rounded-full mb-2.5 ${catColor}`}>
-          {article.category}
+          {t(categoryTranslationKeys[article.category], article.category)}
         </span>
 
         <h3 className="text-[1.05rem] font-bold text-slate-900 dark:text-white leading-snug mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
@@ -230,7 +231,7 @@ export default function NewsCard({
           </div>
           <div className="flex items-center gap-1 text-xs text-gray-400 dark:text-slate-500">
             <Clock size={11} />
-            <span>{article.readTime} min</span>
+            <span>{article.readTime} {t('minRead')}</span>
           </div>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import { getTranslation } from '../utils/translations';
 
 const AppContext = createContext(null);
 
@@ -12,6 +13,9 @@ export function AppProvider({ children }) {
   const [selectedArticle, setSelectedArticle] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [language, setLanguage] = useState(() => {
+    return localStorage.getItem('language') || 'en';
+  });
 
   const toggleDarkMode = () => {
     setDarkMode(prev => {
@@ -19,6 +23,13 @@ export function AppProvider({ children }) {
       return !prev;
     });
   };
+
+  const changeLanguage = (nextLanguage) => {
+    localStorage.setItem('language', nextLanguage);
+    setLanguage(nextLanguage);
+  };
+
+  const t = (key, fallback) => getTranslation(language, key, fallback);
 
   return (
     <AppContext.Provider value={{
@@ -28,6 +39,8 @@ export function AppProvider({ children }) {
       selectedArticle, setSelectedArticle,
       mobileMenuOpen, setMobileMenuOpen,
       searchQuery, setSearchQuery,
+      language, changeLanguage,
+      t,
     }}>
       {children}
     </AppContext.Provider>
