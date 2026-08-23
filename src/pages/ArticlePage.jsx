@@ -10,7 +10,7 @@ import {
   ChevronRight,
   Eye,
 } from "lucide-react";
-import { newsArticles, categoryColors } from "../data/newsData";
+import { newsArticles as seedArticles, categoryColors } from "../data/newsData";
 import NewsCard from "../components/NewsCard";
 import { useApp } from "../context/AppContext";
 
@@ -20,6 +20,7 @@ export default function ArticlePage() {
     setCurrentPage,
     setSelectedArticle,
     setSelectedCategory,
+    articles,
     t,
   } = useApp();
 
@@ -33,14 +34,14 @@ export default function ArticlePage() {
   const article = selectedArticle;
   const catColor = categoryColors[article.category];
 
-  const relatedArticles = newsArticles
+  const relatedArticles = articles
     .filter(
       (a) =>
         a.category === article.category && a.id !== article.id
     )
     .slice(0, 4);
 
-  const otherArticles = newsArticles
+  const otherArticles = articles
     .filter((a) => a.id !== article.id)
     .slice(0, 2);
 
@@ -181,7 +182,7 @@ export default function ArticlePage() {
 
                   <div className="my-8 aspect-[16/9] rounded-xl overflow-hidden bg-gray-100 dark:bg-slate-800">
                     <img
-                      src={newsArticles[2].image}
+                      src={articles[2]?.image || seedArticles[2].image}
                       alt="Inline illustration"
                       className="w-full h-full object-cover"
                     />

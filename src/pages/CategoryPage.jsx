@@ -3,8 +3,6 @@ import { SlidersHorizontal, ArrowRight } from "lucide-react";
 import NewsCard, { NewsCardSkeleton } from "../components/NewsCard";
 import Sidebar from "../components/Sidebar";
 import {
-  newsArticles,
-  heroArticles,
   categoryColors,
 } from "../data/newsData";
 import { useApp } from "../context/AppContext";
@@ -42,7 +40,7 @@ const categoryDescriptions = {
 export default function CategoryPage() {
   const [loading, setLoading] = useState(true);
   const [sortBy, setSortBy] = useState("latest");
-  const { selectedCategory, t } = useApp();
+  const { selectedCategory, articles, t } = useApp();
 
   useEffect(() => {
     setLoading(true);
@@ -52,8 +50,7 @@ export default function CategoryPage() {
 
   if (!selectedCategory) return null;
 
-  const allArticles = [...heroArticles, ...newsArticles];
-  const filtered = allArticles.filter(
+  const filtered = articles.filter(
     (a) => a.category === selectedCategory
   );
 

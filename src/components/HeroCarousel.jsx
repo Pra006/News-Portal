@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight, Clock, Zap } from "lucide-react";
-import { heroArticles } from "../data/newsData";
 import { useApp } from "../context/AppContext";
 import { categoryTranslationKeys } from "../utils/translations";
 
@@ -9,7 +8,10 @@ export default function HeroCarousel() {
   const [isAnimating, setIsAnimating] = useState(false);
   const [direction, setDirection] = useState("right");
 
-  const { setSelectedArticle, setCurrentPage, t } = useApp();
+  const { articles, setSelectedArticle, setCurrentPage, t } = useApp();
+  const heroArticles = articles.filter((article) => article.isBreaking).slice(0, 3);
+
+  if (heroArticles.length === 0) return null;
 
   const goTo = useCallback(
     (index, dir = "right") => {

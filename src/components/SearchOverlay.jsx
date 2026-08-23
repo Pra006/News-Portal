@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react';
 import { Search, X, Clock, ArrowRight } from 'lucide-react';
-import { newsArticles, heroArticles, categoryColors } from '../data/newsData';
+import { categoryColors } from '../data/newsData';
 import { useApp } from '../context/AppContext';
 import { categoryTranslationKeys } from '../utils/translations';
 
 export default function SearchOverlay() {
-  const { searchQuery, setSearchQuery, setSelectedArticle, setCurrentPage, t } = useApp();
+  const { searchQuery, setSearchQuery, setSelectedArticle, setCurrentPage, articles, t } = useApp();
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export default function SearchOverlay() {
 
   if (!searchQuery) return null;
 
-  const allArticles = [...heroArticles, ...newsArticles];
+  const allArticles = articles;
   const q = searchQuery.toLowerCase();
 
   const results = allArticles

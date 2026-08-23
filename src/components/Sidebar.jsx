@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { TrendingUp, Mail, CheckCircle, ChevronRight, Flame } from 'lucide-react';
-import { trendingArticles, newsArticles } from '../data/newsData';
 import { useApp } from '../context/AppContext';
 import NewsCard from './NewsCard';
 import { categoryTranslationKeys } from '../utils/translations';
@@ -9,7 +8,9 @@ export default function Sidebar() {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { setSelectedArticle, setCurrentPage, t } = useApp();
+  const { setSelectedArticle, setCurrentPage, articles, t } = useApp();
+  const trendingArticles = articles.filter((article) => article.isPopular).slice(0, 5);
+  const newsArticles = articles;
 
   const handleSubscribe = (e) => {
     e.preventDefault();

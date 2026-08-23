@@ -6,8 +6,10 @@ import ScrollToTop from './components/ScrollToTop';
 import SearchOverlay from './components/SearchOverlay';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/auth/Login';
+import SignupPage from './pages/auth/Signup';
 import CategoryPage from './pages/CategoryPage';
 import ArticlePage from './pages/ArticlePage';
+import AdminPage from './pages/AdminPage';
 
 function AppContent() {
   const { currentPage, darkMode, language } = useApp();
@@ -29,8 +31,10 @@ function AppContent() {
         <main className="flex-1 page-enter">
           {currentPage === 'home' && <HomePage />}
           {currentPage === 'login' && <LoginPage />}
+          {currentPage === 'signup' && <SignupPage />}
           {currentPage === 'category' && <CategoryPage />}
           {currentPage === 'article' && <ArticlePage />}
+          {currentPage === 'admin' && <AdminPage />}
         </main>
         <Footer />
         <ScrollToTop />

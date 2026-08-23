@@ -3,12 +3,13 @@ import { ArrowRight, Sparkles } from "lucide-react";
 import HeroCarousel from "../components/HeroCarousel";
 import NewsCard, { NewsCardSkeleton } from "../components/NewsCard";
 import Sidebar from "../components/Sidebar";
-import { newsArticles, heroArticles } from "../data/newsData";
 import { useApp } from "../context/AppContext";
 
 export default function HomePage() {
   const [loading, setLoading] = useState(true);
-  const { setSelectedArticle, setCurrentPage, t } = useApp();
+  const { articles, setSelectedArticle, setCurrentPage, t } = useApp();
+  const heroArticles = articles.filter((article) => article.isBreaking).slice(0, 3);
+  const newsArticles = articles.filter((article) => !article.isBreaking);
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 1200);
