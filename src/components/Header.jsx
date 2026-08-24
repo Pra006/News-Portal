@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Search,
   Moon,
@@ -42,8 +42,6 @@ export default function Header() {
     t,
   } = useApp();
 
-  const [searchOpen, setSearchOpen] = useState(false);
-
   const handleCategoryClick = (cat) => {
     setSelectedCategory(cat);
     setCurrentPage("category");
@@ -85,122 +83,34 @@ export default function Header() {
         </div>
       </div>
 
-      <header className="sticky top-0 z-50 bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-700 shadow-sm transition-colors duration-300">
+      <header className="relative lg:sticky lg:top-0 z-50 bg-gradient-to-r from-yellow-100 via-amber-200 to-yellow-100 dark:from-yellow-950 dark:via-amber-900 dark:to-yellow-950 border-b border-yellow-300 dark:border-amber-800 shadow-sm transition-colors duration-300">
         <div className="max-w-[1400px] mx-auto px-3 sm:px-4">
-          {/* ── Row 1: Logo · [tagline desktop] · Actions ── */}
-          <div className="flex items-center h-14 sm:h-16 gap-2 sm:gap-4">
-            {/* Logo */}
+          {/* Centered brand heading and subheading */}
+          <div className="relative flex flex-col items-center justify-center py-4 sm:py-5">
             <button
               onClick={handleLogoClick}
-              className="flex items-center gap-2 shrink-0 group"
+              className="group"
               aria-label="Go to homepage"
             >
-              <span className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight bg-gradient-to-r from-black to-red-600 bg-clip-text text-transparent group-hover:scale-105 transition-transform">
+              <span className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-black to-red-600 bg-clip-text text-transparent group-hover:scale-105 transition-transform inline-block">
                 तराई टाइम्स
               </span>
             </button>
-
-            {/* Tagline — desktop only in this row */}
-            <div className="hidden sm:flex flex-1 flex-col items-center justify-center text-center gap-0.5">
-              <span className="text-base md:text-xl lg:text-2xl font-bold text-slate-800 dark:text-white leading-tight">
-                सबैको आवाज, आवाज एकसाथ
-              </span>
-            </div>
-
-            {/* Spacer pushes actions right on mobile */}
-            <div className="flex-1 sm:hidden" />
-
-            {/* Action Buttons */}
-            <div className="flex items-center gap-1 sm:gap-2 shrink-0">
-              {/* Search toggle (mobile only) */}
-              <button
-                onClick={() => setSearchOpen((o) => !o)}
-                className="sm:hidden w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors"
-                aria-label="Toggle search"
-              >
-                <Search size={18} />
-              </button>
-
-              {/* Bell (desktop only) */}
-              <button className="hidden sm:flex w-9 h-9 items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors relative">
-                <Bell size={18} />
-                <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-orange-500 rounded-full" />
-              </button>
-
-              {/* Dark mode */}
-              <button
-                onClick={toggleDarkMode}
-                className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors"
-                aria-label="Toggle dark mode"
-              >
-                {darkMode ? (
-                  <Sun size={18} className="text-yellow-400" />
-                ) : (
-                  <Moon size={18} />
-                )}
-              </button>
-              <div className="hidden lg:flex items-center gap-1 rounded-full bg-gray-100 dark:bg-slate-800 p-1">
-                <button
-                  onClick={() => changeLanguage("en")}
-                  className={`rounded-full px-2.5 py-1 text-xs font-semibold transition-colors ${language === "en" ? "bg-white dark:bg-slate-700 text-blue-600 shadow-sm" : "text-slate-500 dark:text-slate-400"}`}
-                  aria-pressed={language === "en"}
-                >
-                  EN
-                </button>
-                <button
-                  onClick={() => changeLanguage("ne")}
-                  className={`rounded-full px-2.5 py-1 text-xs font-semibold transition-colors ${language === "ne" ? "bg-white dark:bg-slate-700 text-blue-600 shadow-sm" : "text-slate-500 dark:text-slate-400"}`}
-                  aria-pressed={language === "ne"}
-                >
-                  नेपाली
-                </button>
-              </div>
-              <div className="hidden lg:block">
-                <UserLogin />
-              </div>
-              <button onClick={() => setCurrentPage("admin")} className="hidden xl:inline-flex items-center gap-1.5 rounded-lg border border-red-200 px-3 py-2 text-xs font-semibold text-red-600 hover:bg-red-50" title="Open admin panel">
-                <ShieldCheck size={15} /> Admin
-              </button>
-
-              {/* Hamburger (below lg) */}
-              <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 transition-colors"
-                aria-label="Toggle menu"
-              >
-                {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
-              </button>
-            </div>
-          </div>
-
-          {/* ── Row 2 (mobile only): centered tagline ── */}
-          <div className="sm:hidden flex flex-col items-center justify-center text-center pb-3 -mt-1 border-b border-gray-100 dark:border-slate-800">
-            <span className="text-sm font-bold text-slate-800 dark:text-white leading-tight">
+            <span className="mt-1 text-sm sm:text-base font-semibold text-slate-700 dark:text-slate-300 leading-tight">
               सबैको आवाज, आवाज एकसाथ
             </span>
           </div>
 
-          {/* Mobile inline search bar */}
-          {searchOpen && (
-            <div className="sm:hidden pb-2">
-              <div className="flex items-center bg-gray-100 dark:bg-slate-800 rounded-xl px-4 py-2.5 gap-2">
-                <Search size={15} className="text-gray-400 shrink-0" />
-                <input
-                  autoFocus
-                  type="text"
-                  placeholder={t("search")}
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="bg-transparent flex-1 text-sm text-slate-800 dark:text-slate-200 placeholder-gray-400 outline-none"
-                />
-                {searchQuery && (
-                  <button onClick={() => setSearchQuery("")}>
-                    <X size={14} className="text-gray-400" />
-                  </button>
-                )}
-              </div>
-            </div>
-          )}
+          {/* Mobile actions remain beside the compact header */}
+          <div className="sm:hidden absolute top-4 right-3 flex items-center gap-1">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 transition-colors"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
 
           {/* ── DESKTOP NAV ── */}
           <nav className="hidden lg:flex items-center gap-1 border-t border-gray-100 dark:border-slate-800">
@@ -240,16 +150,23 @@ export default function Header() {
               {t("moreStories")} ▾
             </button>
 
-            {/* Search bar pushed to the right on desktop */}
-            <div className="ml-auto flex items-center bg-gray-100 dark:bg-slate-800 rounded-full px-3 py-1.5 gap-2 w-44 xl:w-56">
-              <Search size={14} className="text-gray-400 shrink-0" />
-              <input
-                type="text"
-                placeholder={t("search")}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="bg-transparent flex-1 text-sm text-slate-800 dark:text-slate-200 placeholder-gray-400 outline-none"
-              />
+            {/* Actions stay on the right side of the same navigation row. */}
+            <div className="ml-auto flex items-center gap-1.5 pl-3">
+              <button className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors relative" aria-label="Notifications">
+                <Bell size={18} />
+                <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-orange-500 rounded-full" />
+              </button>
+              <button onClick={toggleDarkMode} className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" aria-label="Toggle dark mode">
+                {darkMode ? <Sun size={18} className="text-yellow-400" /> : <Moon size={18} />}
+              </button>
+              <div className="hidden xl:flex items-center gap-1 rounded-full bg-gray-100 dark:bg-slate-800 p-1">
+                <button onClick={() => changeLanguage("en")} className={`rounded-full px-2.5 py-1 text-xs font-semibold transition-colors ${language === "en" ? "bg-white dark:bg-slate-700 text-blue-600 shadow-sm" : "text-slate-500 dark:text-slate-400"}`} aria-pressed={language === "en"}>EN</button>
+                <button onClick={() => changeLanguage("ne")} className={`rounded-full px-2.5 py-1 text-xs font-semibold transition-colors ${language === "ne" ? "bg-white dark:bg-slate-700 text-blue-600 shadow-sm" : "text-slate-500 dark:text-slate-400"}`} aria-pressed={language === "ne"}>नेपाली</button>
+              </div>
+              <div className="hidden lg:block"><UserLogin /></div>
+              <button onClick={() => setCurrentPage("admin")} className="hidden xl:inline-flex items-center gap-1.5 rounded-lg border border-red-200 px-3 py-2 text-xs font-semibold text-red-600 hover:bg-red-50" title="Open admin panel">
+                <ShieldCheck size={15} /> Admin
+              </button>
             </div>
           </nav>
         </div>
