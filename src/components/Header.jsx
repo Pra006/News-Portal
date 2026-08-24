@@ -103,7 +103,7 @@ export default function Header() {
             {/* Tagline — desktop only in this row */}
             <div className="hidden sm:flex flex-1 flex-col items-center justify-center text-center gap-0.5">
               <span className="text-base md:text-xl lg:text-2xl font-bold text-slate-800 dark:text-white leading-tight">
-                {t("tagline")}
+                सबैको आवाज, आवाज एकसाथ
               </span>
             </div>
 
@@ -176,7 +176,7 @@ export default function Header() {
           {/* ── Row 2 (mobile only): centered tagline ── */}
           <div className="sm:hidden flex flex-col items-center justify-center text-center pb-3 -mt-1 border-b border-gray-100 dark:border-slate-800">
             <span className="text-sm font-bold text-slate-800 dark:text-white leading-tight">
-              {t("tagline")}
+              सबैको आवाज, आवाज एकसाथ
             </span>
           </div>
 
@@ -376,9 +376,6 @@ export default function Header() {
               <div className="mb-3">
                 <UserLogin />
               </div>
-              <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 rounded-xl transition-colors min-h-[48px]">
-                {t("subscribeForFree")}
-              </button>
               <button
                 onClick={toggleDarkMode}
                 className="w-full mt-2 flex items-center justify-center gap-2 border border-gray-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-medium py-3.5 rounded-xl transition-colors min-h-[48px]"

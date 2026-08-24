@@ -118,7 +118,7 @@ export default function Sidebar() {
                 <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
               ) : (
                 <>
-                  {t('subscribeFree')}
+                  {t('subscribe')}
                   <ChevronRight size={14} />
                 </>
               )}
