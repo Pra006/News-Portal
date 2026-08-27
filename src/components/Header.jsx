@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import {
   Search,
   Moon,
@@ -6,8 +6,6 @@ import {
   Menu,
   X,
   Zap,
-  Bell,
-  TrendingUp,
   Languages,
   ShieldCheck,
 } from "lucide-react";
@@ -15,15 +13,6 @@ import { useApp } from "../context/AppContext";
 import { categories } from "../data/newsData";
 import { categoryTranslationKeys } from "../utils/translations";
 import UserLogin from "./auth/Login";
-
-const navCategories = [
-  "World",
-  "Politics",
-  "Tech",
-  "Sports",
-  "Business",
-  "Science",
-];
 
 export default function Header() {
   const {
@@ -101,6 +90,15 @@ export default function Header() {
             </span>
           </div>
 
+          <button
+            onClick={() => setMobileMenuOpen(true)}
+            className="hidden lg:flex absolute top-5 left-4 items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-slate-600 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors"
+            aria-label="Open navigation menu"
+          >
+            <Menu size={19} />
+            Menu
+          </button>
+
           {/* Mobile actions remain beside the compact header */}
           <div className="sm:hidden absolute top-4 right-3 flex items-center gap-1">
             <button
@@ -112,75 +110,18 @@ export default function Header() {
             </button>
           </div>
 
-          {/* ── DESKTOP NAV ── */}
-          <nav className="hidden lg:flex items-center gap-1 border-t border-gray-100 dark:border-slate-800">
-            <button
-              onClick={handleLogoClick}
-              className={`px-4 py-3 text-sm font-semibold transition-colors border-b-2 whitespace-nowrap ${
-                currentPage === "home" && !selectedCategory
-                  ? "text-blue-600 border-blue-600"
-                  : "text-slate-600 dark:text-slate-400 border-transparent hover:text-slate-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-slate-600"
-              }`}
-            >
-              {t("home")}
-            </button>
-
-            {navCategories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => handleCategoryClick(cat)}
-                className={`px-4 py-3 text-sm font-semibold transition-colors border-b-2 whitespace-nowrap ${
-                  selectedCategory === cat
-                    ? "text-blue-600 border-blue-600"
-                    : "text-slate-600 dark:text-slate-400 border-transparent hover:text-slate-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-slate-600"
-                }`}
-              >
-                {t(categoryTranslationKeys[cat], cat)}
-              </button>
-            ))}
-
-            <button
-              onClick={() => handleCategoryClick("Culture")}
-              className={`px-4 py-3 text-sm font-semibold transition-colors border-b-2 whitespace-nowrap ${
-                selectedCategory === "Culture"
-                  ? "text-blue-600 border-blue-600"
-                  : "text-slate-600 dark:text-slate-400 border-transparent hover:text-slate-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-slate-600"
-              }`}
-            >
-              {t("moreStories")} ▾
-            </button>
-
-            {/* Actions stay on the right side of the same navigation row. */}
-            <div className="ml-auto flex items-center gap-1.5 pl-3">
-              <button className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors relative" aria-label="Notifications">
-                <Bell size={18} />
-                <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-orange-500 rounded-full" />
-              </button>
-              <button onClick={toggleDarkMode} className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" aria-label="Toggle dark mode">
-                {darkMode ? <Sun size={18} className="text-yellow-400" /> : <Moon size={18} />}
-              </button>
-              <div className="hidden xl:flex items-center gap-1 rounded-full bg-gray-100 dark:bg-slate-800 p-1">
-                <button onClick={() => changeLanguage("en")} className={`rounded-full px-2.5 py-1 text-xs font-semibold transition-colors ${language === "en" ? "bg-white dark:bg-slate-700 text-blue-600 shadow-sm" : "text-slate-500 dark:text-slate-400"}`} aria-pressed={language === "en"}>EN</button>
-                <button onClick={() => changeLanguage("ne")} className={`rounded-full px-2.5 py-1 text-xs font-semibold transition-colors ${language === "ne" ? "bg-white dark:bg-slate-700 text-blue-600 shadow-sm" : "text-slate-500 dark:text-slate-400"}`} aria-pressed={language === "ne"}>नेपाली</button>
-              </div>
-              <div className="hidden lg:block"><UserLogin /></div>
-              <button onClick={() => setCurrentPage("admin")} className="hidden xl:inline-flex items-center gap-1.5 rounded-lg border border-red-200 px-3 py-2 text-xs font-semibold text-red-600 hover:bg-red-50" title="Open admin panel">
-                <ShieldCheck size={15} /> Admin
-              </button>
-            </div>
-          </nav>
         </div>
       </header>
 
       {/* ── MOBILE MENU OVERLAY ── */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-[60] lg:hidden">
+        <div className="fixed inset-0 z-[60]">
           <div
             className="absolute inset-0 bg-black/50 backdrop-blur-sm"
             onClick={() => setMobileMenuOpen(false)}
           />
 
-          <div className="absolute top-0 left-0 h-full w-80 max-w-[85vw] bg-white dark:bg-slate-900 shadow-2xl overflow-y-auto flex flex-col">
+          <div className="absolute top-0 left-0 h-full w-80 lg:w-96 max-w-[90vw] bg-white dark:bg-slate-900 shadow-2xl overflow-y-auto flex flex-col">
             {/* Drawer header */}
             <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-slate-700">
               <button
@@ -230,16 +171,6 @@ export default function Header() {
               >
                 🏠 {t("home")}
               </button>
-              <button
-                onClick={() => {
-                  setCurrentPage("admin");
-                  setMobileMenuOpen(false);
-                }}
-                className="mt-2 flex w-full items-center gap-2 rounded-xl px-4 py-3.5 text-base font-semibold text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
-              >
-                <ShieldCheck size={18} /> Admin panel
-              </button>
-
               {categories.map((cat) => (
                 <button
                   key={cat}
@@ -303,6 +234,15 @@ export default function Header() {
                   <Moon size={16} />
                 )}
                 {darkMode ? t("lightMode") : t("darkMode")}
+              </button>
+              <button
+                onClick={() => {
+                  setCurrentPage("admin");
+                  setMobileMenuOpen(false);
+                }}
+                className="w-full mt-3 flex items-center justify-center gap-2 rounded-xl border border-red-200 px-4 py-3.5 text-base font-semibold text-red-600 hover:bg-red-50 dark:border-red-900/50 dark:hover:bg-red-900/20"
+              >
+                <ShieldCheck size={18} /> Admin panel
               </button>
             </div>
           </div>
